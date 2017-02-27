@@ -446,24 +446,24 @@ main (int    argc,
 
   exit_code = 0;
 
-  //hide_cursor ();
+  hide_cursor ();
 
   if (argc == 1)
-    image = ply_image_new ("/usr/splash.png");
+    image = ply_image_new ("/usr/share/ply-lite/splash.png");
   else
   {
 	  int retcode = atoi(argv[1]);
 	  switch (retcode)
 	  {
 			case 0: case 64: case 65:
-			image = ply_image_new("/usr/splash.png");
+			image = ply_image_new("/usr/share/ply-lite/splash.png");
 			break;
 			case 66: case 1:
-			image = ply_image_new("/usr/splash_sad.png");
+			image = ply_image_new("/usr/share/ply-lite/splash_sad.png");
 			case 100:
-			image = ply_image_new("/usr/splash_update.png");
+			image = ply_image_new("/usr/share/ply-lite/splash_update.png");
 			default:
-			image = ply_image_new("/usr/splash_sad.png"); /* Unknown error */
+			image = ply_image_new("/usr/share/ply-lite/splash_sad.png"); /* Unknown error */
 	  }
   }
 
