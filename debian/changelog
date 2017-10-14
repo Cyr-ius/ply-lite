@@ -1,4 +1,4 @@
-ply-lite (#VERSION#) #DIST#; urgency=medium
+ply-lite (1.07) stretch; urgency=medium
 
   * Create Plymouth lite for linux
 
