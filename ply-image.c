@@ -446,12 +446,26 @@ main (int    argc,
 
   exit_code = 0;
 
-  hide_cursor ();
-
+  //hide_cursor ();
   if (argc == 1)
-    image = ply_image_new ("/usr/share/ply-lite/splash.png");
+   {
+    printf("Please select code number [0,1,64,65,66,100] or explicit file path for image \n\n");
+    printf("\t[0,64,65] load image to /usr/share/ply-lite/splash.png \n");
+    printf("\t[1,66]    load image to /usr/share/ply-lite/splash_crash.png \n");
+    printf("\t[100]     load image to /usr/share/ply-lite/splash_update.png \n\n");
+    printf("Exemple : ./ply-image 0 or ./ply-image /foo/bar.png \n\n");
+    return 0;
+    //image = ply_image_new ("/usr/share/ply-lite/splash.png");
+   }
   else
   {
+    if (argc == 2)
+    	if (strlen(argv[1]) > 3)
+        {
+	        char imgpath[255];
+	        strcpy(imgpath,argv[1]);
+		image = ply_image_new(imgpath);
+         } else {
 	  int retcode = atoi(argv[1]);
 	  switch (retcode)
 	  {
@@ -459,12 +473,13 @@ main (int    argc,
 			image = ply_image_new("/usr/share/ply-lite/splash.png");
 			break;
 			case 66: case 1:
-			image = ply_image_new("/usr/share/ply-lite/splash_sad.png");
+			image = ply_image_new("/usr/share/ply-lite/splash_crash.png");
 			case 100:
 			image = ply_image_new("/usr/share/ply-lite/splash_update.png");
 			default:
-			image = ply_image_new("/usr/share/ply-lite/splash_sad.png"); /* Unknown error */
+			image = ply_image_new("/usr/share/ply-lite/splash_crash.png"); /* Unknown error */
 	  }
+         }
   }
 
   if (!ply_image_load (image))
