@@ -25,7 +25,7 @@ then
 	/bin/mount -t devpts devpts /dev/pts
 	/bin/hostname -F /etc/hostname
 	/bin/echo -e "\n\n\n\n"
-	echo "          OSMC Recovery Console."
+	echo "          Recovery Console."
 	echo "          Type 'exit' to reboot when finished."
 	echo "          For help and support see http://osmc.tv/help"
 	echo
