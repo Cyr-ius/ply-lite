@@ -1,3 +1,9 @@
+ply-lite (1.10) stretch; urgency=medium
+
+  * [5ce9453] Add dependances for building
+
+ -- Cyr-ius <cyr-ius@Hygor>  Sun, 22 Oct 2017 18:05:44 +0200
+
 ply-lite (1.09) stretch; urgency=medium
 
   * Create Plymouth lite for linux
