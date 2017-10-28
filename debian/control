@@ -6,6 +6,6 @@ Build-Depends: debhelper (>= 8.0.0)
 Homepage: https://github.com/cyr-ius/rpi23-gen-image
 
 Package: ply-lite
-Architecture: all
+Architecture: any
 Depends: ${misc:Depends}
 Description: Plymouth lite for linux
