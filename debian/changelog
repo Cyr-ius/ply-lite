@@ -1,3 +1,11 @@
+ply-lite (1.11) stretch; urgency=medium
+
+  * [106855b] Disable verbose
+  * [e80daf7] Fix version
+  * [056a40f] Splashscren 17.5
+
+ -- Cyr-ius <cyr-ius@Hygor>  Fri, 03 Nov 2017 13:15:51 +0100
+
 ply-lite (1.10) stretch; urgency=medium
 
   * [5ce9453] Add dependances for building
