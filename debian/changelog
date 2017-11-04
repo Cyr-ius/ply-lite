@@ -1,3 +1,9 @@
+ply-lite (1.13) stretch; urgency=medium
+
+  * [1164ac5] Fix static library
+
+ -- Cyr-ius <cyr-ius@Hygor>  Sat, 04 Nov 2017 16:46:26 +0100
+
 ply-lite (1.12) stretch; urgency=medium
 
   * [9efb149] Add build package
