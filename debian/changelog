@@ -1,3 +1,9 @@
+ply-lite (1.14) stretch; urgency=medium
+
+  * [33c9b31] Rollup static library
+
+ -- Cyr-ius <cyr-ius@Hygor>  Sat, 04 Nov 2017 17:10:29 +0100
+
 ply-lite (1.13) stretch; urgency=medium
 
   * [1164ac5] Fix static library
