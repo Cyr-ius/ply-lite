@@ -20,19 +20,23 @@ ifeq ($(HOST),arm-linux-gnueabihf)
 endif
 
 ply-image: toolchain zlib libpng
-	$(CC) ply-image.c ply-frame-buffer.c -o ply-image -lpng16 -lm -lz -L./depends/lib -I./depends/include -static
+	$(CC) ply-image.c ply-frame-buffer.c -o ply-image -lpng16 -lm -lz -L./depends/lib -I./depends/include
 	$(STRIP) ply-image
 	$(CC) checkmodifier.c -o checkmodifier
 	$(STRIP) checkmodifier
 
 zlib:
-	wget http://www.zlib.net/$(ZLIB).tar.gz
-	tar -xvf $(ZLIB).tar.gz
-	cd $(ZLIB);CHOST=$(CROSS_COMPILE) ./configure --prefix=$(shell pwd)/depends;make -j$(NUMCPUS);make install
+	@if [ ! -d $(ZLIB) ];then \
+		wget http://www.zlib.net/$(ZLIB).tar.gz; \
+		tar -xvf $(ZLIB).tar.gz; \
+	fi
+	cd $(ZLIB);CC=$(CC) ./configure --prefix=$(shell pwd)/depends;make -j$(NUMCPUS);make install
 
 libpng:
-	wget ftp://ftp-osl.osuosl.org/pub/libpng/src/libpng16/$(LIBPNG).tar.gz 
-	tar -xvf $(LIBPNG).tar.gz
+	@if [ ! -d $(LIBPNG) ];then \
+		wget ftp://ftp-osl.osuosl.org/pub/libpng/src/libpng16/$(LIBPNG).tar.gz; \
+		tar -xvf $(LIBPNG).tar.gz; \
+	fi
 	cd $(LIBPNG); \
 	./configure --host $(HOST) --prefix=$(shell pwd)/depends CPPFLAGS="-I../depends/include" LDFLAGS="-L../depends/lib" \
 	AR=$(AR) CC=$(CC) STRIP=$(STRIP) RANLIB=$(RANLIB) LD=$(LD) NM=$(NM) OBJDUMP=$(OBJDUMP) MT=$(MT) DLLTOOL=$(DLLTOOL); \
