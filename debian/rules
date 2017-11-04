@@ -7,8 +7,20 @@
 # This special exception was added by Craig Small in version 0.37 of dh-make.
 
 # Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
+#export DH_VERBOSE=1
+export DEB_CPPFLAGS_SET=-g -O2
+export DEB_CFLAGS_SET=-g -O2
+export DEB_CXXFLAGS_SET=-g -O2
+export DEB_FCFLAGS_SET=-g -O2
+export DEB_FFFLAGS_SET=-g -O2
+export DEB_GCJFLAGS_SET=-g -O2
+export DEB_OBJCFLAGS_SET=-g -O2
+export DEB_OBJCXXFLAGS_SET=-g -O2
+export DEB_FFLAGS_SET=-g -O2
+
 %:
 	dh $@ 
-	
 override_dh_shlibdeps:
+override_dh_auto_build:
+	$(MAKE)
+
