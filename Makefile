@@ -20,7 +20,7 @@ ifeq ($(HOST),arm-linux-gnueabihf)
 endif
 
 ply-image: toolchain zlib libpng
-	$(CC) ply-image.c ply-frame-buffer.c -o ply-image -lpng16 -lm -lz -L./depends/lib -I./depends/include
+	$(CC) ply-image.c ply-frame-buffer.c -o ply-image -lpng16 -lm -lz -L./depends/lib -I./depends/include -static
 	$(STRIP) ply-image
 	$(CC) checkmodifier.c -o checkmodifier
 	$(STRIP) checkmodifier
