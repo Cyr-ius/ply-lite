@@ -16,8 +16,9 @@ MT=$(CROSS_COMPILE)-mt
 DLLTOOL=$(CROSS_COMPILE)-dlltool
 
 ifeq ($(HOST),arm-linux-gnueabihf)
-	CROSS_COMPILE:=$(shell pwd)/tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin/$(CROSS_COMPILE)
+	CROSS_COMPILE:=$(shell pwd)/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin/$(CROSS_COMPILE)
 endif
+all:ply-image
 
 ply-image: toolchain zlib libpng
 	$(CC) ply-image.c ply-frame-buffer.c -o ply-image -lpng16 -lm -lz -L./depends/lib -I./depends/include
@@ -56,3 +57,9 @@ clean:
 	rm -rf tools/
 	rm -rf $(ZLIB) $(ZLIB).tar.gz*
 	rm -rf $(LIBPNG) $(LIBPNG).tar.gz*
+
+package:
+	dpkg-buildpackage -us -uc -B -aarmhf
+
+reset:
+	debclean
