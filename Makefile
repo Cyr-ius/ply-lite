@@ -2,6 +2,8 @@ LIBPNG=libpng-1.6.34
 ZLIB=zlib-1.2.11
 
 NUMCPUS=$(shell grep -c '^processor' /proc/cpuinfo)
+URLTOOLS="https://github.com/raspberrypi/tools.git"
+
 CROSS_COMPILE?=$(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 HOST=$(shell basename $(CROSS_COMPILE))
 
@@ -16,9 +18,25 @@ MT=$(CROSS_COMPILE)-mt
 DLLTOOL=$(CROSS_COMPILE)-dlltool
 
 ifeq ($(HOST),arm-linux-gnueabihf)
-	CROSS_COMPILE:=$(shell pwd)/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin/$(CROSS_COMPILE)
+	CROSS_COMPILE:=$(CURDIR)/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin/$(CROSS_COMPILE)
 endif
-all:ply-image
+
+ifeq ($(RPI_MODEL),rbp1)
+	ARCH=armhf
+endif
+
+ifeq ($(RPI_MODEL),rbp2)
+	ARCH=armhf
+endif
+
+ifeq ($(RPI_MODEL),rbp3)
+	ARCH=arm64
+endif
+
+rbp%:
+	RPI_MODEL=$@ $(MAKE) package
+	
+all: ply-image
 
 ply-image: toolchain zlib libpng
 	$(CC) ply-image.c ply-frame-buffer.c -o ply-image -lpng16 -lm -lz -L./depends/lib -I./depends/include
@@ -47,7 +65,7 @@ libpng:
 toolchain:
 	@if  [ "$(HOST)" = "arm-linux-gnueabihf" ] && [ ! -d tools ];then \
 		echo "Load tools...";\
-		git clone git://github.com/raspberrypi/tools.git --jobs=$(NUMCPUS) --depth=1 -b master; \
+		git clone $(URLTOOLS) --jobs=$(NUMCPUS) --depth=1 -b master; \
 	fi
 
 clean:
@@ -59,7 +77,7 @@ clean:
 	rm -rf $(LIBPNG) $(LIBPNG).tar.gz*
 
 package:
-	dpkg-buildpackage -us -uc -B -aarmhf
+	dpkg-buildpackage -us -uc -B -a$(ARCH)
 
 reset:
 	debclean
